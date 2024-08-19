@@ -70,7 +70,7 @@ load_index()
 
 
 # Interfaz de Streamlit
-st.title("Honne Bot v2")
+st.title("Honne Bot local vector - store")
 
 # Inicializar el chatbot
 qa_chain = init_chatbot()
