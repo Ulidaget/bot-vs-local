@@ -84,8 +84,30 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+# # Entrada del usuario
+# if prompt := st.chat_input("Escribe tu mensaje aquí"):
+#     st.session_state.messages.append({"role": "user", "content": prompt})
+#     with st.chat_message("user"):
+#         st.markdown(prompt)
+
+#     # Generar respuesta
+#     with st.chat_message("assistant"):
+#         message_placeholder = st.empty()
+#         response = qa_chain({"question": prompt})
+#         full_response = response['answer']
+#         message_placeholder.markdown(full_response)
+    
+#     # Guardar la respuesta en el historial
+#     st.session_state.messages.append({"role": "assistant", "content": full_response})
 # Entrada del usuario
 if prompt := st.chat_input("Escribe tu mensaje aquí"):
+    # Contexto adicional o instrucciones claras
+    enhanced_prompt = (
+        f"Eres un asistente virtual experto en marketing con la informacion de Honne Services. "
+        f"Por favor, responde con información detallada y precisa. "
+        f"\n\nPregunta del usuario: {prompt}"
+    )
+
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -93,7 +115,7 @@ if prompt := st.chat_input("Escribe tu mensaje aquí"):
     # Generar respuesta
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
-        response = qa_chain({"question": prompt})
+        response = qa_chain({"question": enhanced_prompt})
         full_response = response['answer']
         message_placeholder.markdown(full_response)
     
